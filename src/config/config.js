@@ -2,12 +2,23 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-if (!process.env.APP_PORT) {
-    throw new Error('PORT key is not defined in environment variables');
-}
+const {
+    APP_PORT,
+    MYSQL_DB_NAME, MYSQL_DB_HOST, MYSQL_DB_PORT, MYSQL_DB_USER, MYSQL_DB_PASSWORD,
+    JWT_SECRET_KEY
+} = process.env;
 
 const config = {
-    APP_PORT: process.env.APP_PORT
+    APP_PORT,
+    MYSQL_DB_NAME, MYSQL_DB_HOST, MYSQL_DB_PORT, MYSQL_DB_USER, MYSQL_DB_PASSWORD,
+    JWT_SECRET_KEY
+}
+
+for (const [key, value] of Object.entries(config)) {
+    if (!value) {
+        throw new Error(`${key} key is not defined in environment variables`);
+        break;
+    }
 }
 
 export default config;
