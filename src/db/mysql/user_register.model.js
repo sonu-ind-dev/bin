@@ -1,17 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 
-export class UserRegister extends Model {}
+export class UserRegister extends Model { }
 
 export function initializeUserRegisterModel(sequelize) {
     UserRegister.init(
         {
-            id: {
-                type: DataTypes.BIGINT.UNSIGNED,
-                primaryKey: true,
-                autoIncrement: true,
-            },
             phone_number: {
                 type: DataTypes.STRING(20),
+                primaryKey: true,
                 allowNull: false,
                 unique: "uq_user_register_phone_number",
             },
@@ -19,12 +15,17 @@ export function initializeUserRegisterModel(sequelize) {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
-            otp_hash: DataTypes.STRING(255),
-            otp_expires_at: DataTypes.DATE,
-            is_verified: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false,
-                defaultValue: false,
+            otp_hash: { type: DataTypes.STRING(255) },
+            otp_expires_at: { type: DataTypes.DATE },
+            submission_count: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+                allowNull: true,
+            },
+            submission_blocked: {
+                type: DataTypes.DATE,
+                defaultValue: null,
+                allowNull: true,
             },
         },
         {
@@ -36,7 +37,7 @@ export function initializeUserRegisterModel(sequelize) {
             indexes: [
                 {
                     name: "idx_user_register_verification",
-                    fields: ["is_verified", "otp_expires_at"],
+                    fields: ["otp_expires_at"],
                 },
             ],
         },

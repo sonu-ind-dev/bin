@@ -5,7 +5,7 @@ import {
     userRegisterMigrations,
 } from "./user_register.model.js";
 
-class SchemaMigration extends Model {}
+class SchemaMigration extends Model { }
 
 SchemaMigration.init(
     {
