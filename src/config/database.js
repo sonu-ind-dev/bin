@@ -5,6 +5,7 @@ const mysql_db_connection = async () => {
     var mysql_connection;
 
     try {
+        // ? Explore mysql.createPool - Todo
         mysql_connection = await mysql.createConnection({
             host: config.MYSQL_DB_HOST,
             user: config.MYSQL_DB_USER,
@@ -28,6 +29,7 @@ const mysql_db_connection = async () => {
 
         if (mysql_connection) await mysql_connection.destroy();
 
+        // ? Explore mysql.createPool - Todo
         const connection_db = await mysql.createConnection({
             host: config.MYSQL_DB_HOST,
             user: config.MYSQL_DB_USER,
