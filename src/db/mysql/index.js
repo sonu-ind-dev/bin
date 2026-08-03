@@ -17,7 +17,7 @@ import { initializeUserProfileModel, userProfileVersionInfo } from "./user_profi
  * & That's it your table related changes are completed.
  */
 export const tableUpdateFlags = Object.freeze({
-    user_register: false,
+    user_register: true,
     user: false,
     user_profile: false,
 });

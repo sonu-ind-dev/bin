@@ -6,8 +6,8 @@ export function initializeUserModel(sequelize) {
     User.init(
         {
             user_id: {
-                type: DataTypes.BIGINT.UNSIGNED,
-                autoIncrement: false,
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
                 primaryKey: true,
             },
             phone_number: {

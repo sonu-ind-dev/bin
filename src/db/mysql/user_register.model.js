@@ -5,9 +5,13 @@ export class UserRegister extends Model { }
 export function initializeUserRegisterModel(sequelize) {
     UserRegister.init(
         {
+            register_id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true,
+            },
             phone_number: {
                 type: DataTypes.STRING(20),
-                primaryKey: true,
                 allowNull: false,
                 unique: "uq_user_register_phone_number",
             },
@@ -15,8 +19,16 @@ export function initializeUserRegisterModel(sequelize) {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
-            otp_hash: { type: DataTypes.STRING(255) },
-            otp_expires_at: { type: DataTypes.DATE },
+            otp_hash: {
+                type: DataTypes.STRING(255),
+                defaultValue: null,
+                allowNull: true,
+            },
+            otp_expires_at: {
+                type: DataTypes.DATE,
+                defaultValue: null,
+                allowNull: true,
+            },
             submission_count: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
@@ -57,8 +69,8 @@ export function initializeUserRegisterModel(sequelize) {
  * & That's it your table related changes are completed.
  */
 export const userRegisterVersionInfo = Object.freeze({
-    version: "1.0.0",
-    description: "Initial Version",
+    version: "1.1.0",
+    description: "Adding registration_id and done some column type changes",
     updated_by: "sonu.ind.dev@gmail.com",
     approved_by: "",
 });

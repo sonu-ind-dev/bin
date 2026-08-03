@@ -4,20 +4,30 @@ import { responseType } from "./constant.js";
 import argon2 from "argon2id/lib/setup.js";
 
 
-export const catchSuccessResponse = (successMessage = '') => ({
+// & Response Formats
+export const catchSuccessResponse = (successMessage = '', data = null) => ({
+    data,
     success: true,
     type: responseType['S'],
     message: successMessage || 'Successful',
 });
-export const catchErrorResponse = (errorMessage = '') => ({
+export const catchErrorResponse = (errorMessage = '', data = null) => ({
+    data,
     success: false,
     type: responseType['E'],
     message: errorMessage || 'Request faced internal server error',
 });
+export const catchWarningResponse = (warningMessage = '', data = null) => ({
+    data,
+    success: false,
+    type: responseType['W'],
+    message: warningMessage || 'Due to some warning issue this request failed.',
+});
 
 
-export const createHash = async (value) => await argon2.hash(value, { type: argon2.argon2id });
-export const verifyToHash = async (enteredValue, hashedValue) => await argon2.verify(hashedValue, enteredValue);
+// & Encryption Things
+export const generateHashed = async (value) => await argon2.hash(value, { type: argon2.argon2id });
+export const verifyWithHash = async (enteredValue, hashedValue) => await argon2.verify(hashedValue, enteredValue);
 
 export const protectValue = (value) => {
     if (typeof value !== "string") throw new TypeError("value must be a string to protect.");
@@ -44,3 +54,12 @@ export const protectValue = (value) => {
             .digest("base64url"),
     };
 };
+
+
+// ? Generate Hash OTP
+export const generateHashedOtp = async () => {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    const hashedOtp = await createHash(otp);
+
+    return hashedOtp;
+}
