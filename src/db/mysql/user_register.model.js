@@ -46,6 +46,19 @@ export function initializeUserRegisterModel(sequelize) {
     return UserRegister;
 }
 
-// Add immutable, forward-only migrations here when this existing table changes.
-// Example: { version, description, up: async ({ queryInterface }) => { ... } }
-export const userRegisterMigrations = [];
+/**
+ * & How to update a table
+ * ? Step 01: Stop the server then do the table related code changes
+ * ? Step 02: In table model file update it's version info object details properly
+ * ? Step 03: Change tableUpdateFlags of that particular table to true in /src/db/mysql/index.js file
+ * ? Step 04: Start the server
+ * ? Step 05: Stop the server
+ * ? Step 06: Only change tableUpdateFlags of that particular table to false in /src/db/mysql/index.js file
+ * & That's it your table related changes are completed.
+ */
+export const userRegisterVersionInfo = Object.freeze({
+    version: "1.0.0",
+    description: "Initial Version",
+    updated_by: "sonu.ind.dev@gmail.com",
+    approved_by: "",
+});

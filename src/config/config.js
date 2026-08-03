@@ -1,15 +1,17 @@
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const {
     APP_PORT,
+    MYSQL_TABLE_VERSION_APPROVED_BY,
     MYSQL_DB_NAME, MYSQL_DB_HOST, MYSQL_DB_PORT, MYSQL_DB_USER, MYSQL_DB_PASSWORD,
     JWT_SECRET_KEY
 } = process.env;
 
 const config = {
     APP_PORT,
+    MYSQL_TABLE_VERSION_APPROVED_BY,
     MYSQL_DB_NAME, MYSQL_DB_HOST, MYSQL_DB_PORT, MYSQL_DB_USER, MYSQL_DB_PASSWORD,
     JWT_SECRET_KEY
 }
