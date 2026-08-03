@@ -7,7 +7,7 @@ export function initializeUserModel(sequelize) {
         {
             user_id: {
                 type: DataTypes.BIGINT.UNSIGNED,
-                autoIncrement: true,
+                autoIncrement: false,
                 primaryKey: true,
             },
             phone_number: {

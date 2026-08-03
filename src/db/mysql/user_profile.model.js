@@ -39,6 +39,11 @@ export function initializeUserProfileModel(sequelize) {
                 defaultValue: null,
                 allowNull: true,
             },
+            pin_code: {
+                type: DataTypes.INTEGER,
+                defaultValue: null,
+                allowNull: true,
+            },
         },
         {
             sequelize,

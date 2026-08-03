@@ -18,8 +18,8 @@ import { initializeUserProfileModel, userProfileVersionInfo } from "./user_profi
  */
 export const tableUpdateFlags = Object.freeze({
     user_register: false,
-    user: true,
-    user_profile: true,
+    user: false,
+    user_profile: false,
 });
 
 // & Export Our Models
