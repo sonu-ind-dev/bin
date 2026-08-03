@@ -1,10 +1,9 @@
 import { DataTypes, Model, QueryTypes } from "sequelize";
 import { sequelize } from "../../config/database.js";
-import {
-    initializeUserRegisterModel,
-    userRegisterVersionInfo,
-} from "./user_register.model.js";
 import config from "../../config/config.js";
+import { initializeUserRegisterModel, userRegisterVersionInfo } from "./user_register.model.js";
+import { initializeUserModel, userVersionInfo } from "./user.model.js";
+import { initializeUserProfileModel, userProfileVersionInfo } from "./user_profile.model.js";
 
 
 /**
@@ -19,20 +18,16 @@ import config from "../../config/config.js";
  */
 export const tableUpdateFlags = Object.freeze({
     user_register: false,
+    user: true,
+    user_profile: true,
 });
 
+// & Export Our Models
+export const UserRegister = initializeUserRegisterModel(sequelize);
+export const User = initializeUserModel(sequelize);
+export const UserProfile = initializeUserProfileModel(sequelize);
 
-const UserRegister = initializeUserRegisterModel(sequelize);
-
-const tableRegistry = [
-    {
-        tableName: "user_register",
-        model: UserRegister,
-        versionInfo: { ...userRegisterVersionInfo, approved_by: userRegisterVersionInfo.approved_by.trim().length ? userRegisterVersionInfo.approved_by : config.MYSQL_TABLE_VERSION_APPROVED_BY },
-    },
-];
-
-class TableVersionHistory extends Model { }
+export class TableVersionHistory extends Model { }
 
 TableVersionHistory.init(
     {
@@ -79,8 +74,23 @@ TableVersionHistory.init(
 );
 
 
-// & Export Our Models
-export const models = { UserRegister, TableVersionHistory };
+const tableRegistry = [
+    {
+        tableName: "user_register",
+        model: UserRegister,
+        versionInfo: { ...userRegisterVersionInfo, approved_by: userRegisterVersionInfo.approved_by.trim().length ? userRegisterVersionInfo.approved_by : config.MYSQL_TABLE_VERSION_APPROVED_BY },
+    },
+    {
+        tableName: "user",
+        model: User,
+        versionInfo: { ...userVersionInfo, approved_by: userVersionInfo.approved_by.trim().length ? userVersionInfo.approved_by : config.MYSQL_TABLE_VERSION_APPROVED_BY },
+    },
+    {
+        tableName: "user_profile",
+        model: UserProfile,
+        versionInfo: { ...userProfileVersionInfo, approved_by: userProfileVersionInfo.approved_by.trim().length ? userProfileVersionInfo.approved_by : config.MYSQL_TABLE_VERSION_APPROVED_BY },
+    },
+];
 
 
 function validateVersionInfo(tableName, versionInfo) {

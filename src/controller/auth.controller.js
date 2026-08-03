@@ -1,5 +1,6 @@
 import { responseType } from "../util/constant.js";
 import { catchErrorResponse, catchSuccessResponse } from "../util/common.js";
+import { UserRegister } from "../db/mysql/index.js";
 
 /**
  * & Route: 
@@ -19,13 +20,15 @@ export const register = (req, res) => {
         const { phone_number, password } = req.body;
 
         if (!phone_number || !password) {
-            var errorMessage = 'Phone number and Password are required.';
+            let errorMessage = 'Phone number and Password are required.';
             return res.status(400).json(catchErrorResponse(errorMessage));
         }
 
+        // const user = await UserRegister.findByPk()
+
         return res.status(200).json(catchSuccessResponse('User created successfully.'));
     } catch (error) {
-        var errorMessage = error.message;
+        let errorMessage = error.message;
         return res.status(500).json(catchErrorResponse(errorMessage));
     }
 };

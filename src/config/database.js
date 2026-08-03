@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 import config from "./config.js";
 
 const mysql_db_connection = async () => {
-    var mysql_connection;
+    let mysql_connection;
 
     try {
         // ? Explore mysql.createPool - Todo
