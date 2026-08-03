@@ -1,4 +1,5 @@
 import mysql from "mysql2/promise";
+import { Sequelize } from "sequelize";
 import config from "./config.js";
 
 const mysql_db_connection = async () => {
@@ -8,6 +9,7 @@ const mysql_db_connection = async () => {
         // ? Explore mysql.createPool - Todo
         mysql_connection = await mysql.createConnection({
             host: config.MYSQL_DB_HOST,
+            port: Number(config.MYSQL_DB_PORT),
             user: config.MYSQL_DB_USER,
             password: config.MYSQL_DB_PASSWORD,
         });
@@ -29,17 +31,43 @@ const mysql_db_connection = async () => {
 
         if (mysql_connection) await mysql_connection.destroy();
 
-        // ? Explore mysql.createPool - Todo
-        const connection_db = await mysql.createConnection({
-            host: config.MYSQL_DB_HOST,
-            user: config.MYSQL_DB_USER,
-            password: config.MYSQL_DB_PASSWORD,
-            database: config.MYSQL_DB_NAME,
-        });
+        // & With mysql
+        {
+            // ? Explore mysql.createPool - Todo
+            // const connection_db = await mysql.createConnection({
+            //     host: config.MYSQL_DB_HOST,
+            //     user: config.MYSQL_DB_USER,
+            //     password: config.MYSQL_DB_PASSWORD,
+            //     database: config.MYSQL_DB_NAME,
+            // });
 
-        console.log(`Database ${config.MYSQL_DB_NAME} connected successfully.`);
+            // console.log(`Database ${config.MYSQL_DB_NAME} connected successfully.`);
 
-        return connection_db;
+            // return connection_db;
+        }
+
+        // & With Sequelize
+        const sequelize = new Sequelize(
+            config.MYSQL_DB_NAME,
+            config.MYSQL_DB_USER,
+            config.MYSQL_DB_PASSWORD,
+            {
+                host: config.MYSQL_DB_HOST,
+                port: Number(config.MYSQL_DB_PORT),
+                dialect: "mysql",
+                logging: false,
+                pool: {
+                    max: 10,
+                    min: 0,
+                    acquire: 30_000,
+                    idle: 10_000,
+                },
+            },
+        );
+
+        await sequelize.authenticate();
+
+        return sequelize;
     } catch (error) {
         if (mysql_connection) await mysql_connection.destroy();
 
@@ -47,4 +75,4 @@ const mysql_db_connection = async () => {
     }
 }
 
-export const mysql_db = await mysql_db_connection();
+export const sequelize = await mysql_db_connection();
