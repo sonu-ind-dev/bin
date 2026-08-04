@@ -17,6 +17,7 @@ import moment from "moment";
  * ? Generate password hash, otp hash and otp_expiry then update or create and send data
  * & Required Updated (if any):
  * ? Send otp on shared mobile number with password info also
+ * ? If any uer got blocked due to multiple submissions then will send notification after block time
 */
 export const register = async (req, res) => {
     try {
