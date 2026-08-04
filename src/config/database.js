@@ -14,7 +14,7 @@ const mysql_db_connection = async () => {
             password: config.MYSQL_DB_PASSWORD,
         });
 
-        console.log("Connected to MySQL server");
+        console.log("CONNECTED: Connected to MySQL server");
 
         const db_query = "SHOW DATABASES LIKE ?";
         const [databases] = await mysql_connection.query(db_query, [config.MYSQL_DB_NAME]);
@@ -26,7 +26,7 @@ const mysql_db_connection = async () => {
 
             console.log(`Database ${config.MYSQL_DB_NAME} created successfully.`);
         } else {
-            console.log(`Database ${config.MYSQL_DB_NAME} already exist.`);
+            // console.log(`EXISTS: Database ${config.MYSQL_DB_NAME} already exist.`);
         }
 
         if (mysql_connection) await mysql_connection.destroy();

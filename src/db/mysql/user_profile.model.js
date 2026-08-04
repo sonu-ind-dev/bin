@@ -25,7 +25,7 @@ export function initializeUserProfileModel(sequelize) {
                 allowNull: true,
             },
             dob: {
-                type: DataTypes.DATE,
+                type: DataTypes.BIGINT,
                 defaultValue: null,
                 allowNull: true,
             },
@@ -73,8 +73,8 @@ export function initializeUserProfileModel(sequelize) {
  * & That's it your table related changes are completed.
  */
 export const userProfileVersionInfo = Object.freeze({
-    version: "1.0.0",
-    description: "Initial Version",
+    version: "1.1.0",
+    description: "Moving Date type columns to BIGINT to store utc number value",
     updated_by: "sonu.ind.dev@gmail.com",
     approved_by: "",
 });

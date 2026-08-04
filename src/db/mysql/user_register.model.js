@@ -25,7 +25,7 @@ export function initializeUserRegisterModel(sequelize) {
                 allowNull: true,
             },
             otp_expires_at: {
-                type: DataTypes.DATE,
+                type: DataTypes.BIGINT,
                 defaultValue: null,
                 allowNull: true,
             },
@@ -35,7 +35,7 @@ export function initializeUserRegisterModel(sequelize) {
                 allowNull: true,
             },
             submission_blocked: {
-                type: DataTypes.DATE,
+                type: DataTypes.BIGINT,
                 defaultValue: null,
                 allowNull: true,
             },
@@ -67,8 +67,8 @@ export function initializeUserRegisterModel(sequelize) {
  * & That's it your table related changes are completed.
  */
 export const userRegisterVersionInfo = Object.freeze({
-    version: "1.1.0",
-    description: "Adding registration_id and done some column type changes",
+    version: "1.1.1",
+    description: "Moving Date type columns to BIGINT to store utc number value",
     updated_by: "sonu.ind.dev@gmail.com",
     approved_by: "",
 });

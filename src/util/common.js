@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import config from "../config/config.js";
 import { responseType } from "./constant.js";
-import argon2 from "argon2id/lib/setup.js";
+import * as argon2 from "argon2";
 
 
 // & Response Formats
@@ -59,7 +59,7 @@ export const protectValue = (value) => {
 // ? Generate Hash OTP
 export const generateHashedOtp = async () => {
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const hashedOtp = await createHash(otp);
+    const hashedOtp = await generateHashed(String(otp));
 
     return hashedOtp;
 }

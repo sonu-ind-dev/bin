@@ -4,6 +4,8 @@ import { User, UserRegister } from "../db/mysql/index.js";
 import { raw } from "mysql2";
 import moment from "moment";
 
+
+
 /**
  * & Route: 
  * ? POST - /api/auth/register
@@ -43,7 +45,7 @@ export const register = async (req, res) => {
         // ? Handle if user already exist in user_registeration table then fetch otherwise create
         const [user_register, created] = await UserRegister.findOrCreate({
             where: { phone_number },
-            defaults: {}
+            defaults: { password_hash: '' }
         });
 
         const now = moment.utc().valueOf();
@@ -83,6 +85,7 @@ export const register = async (req, res) => {
         return res.status(200).json(catchSuccessResponse('User registered successfully.', data));
     } catch (error) {
         let errorMessage = error.message;
+        console.log(`ERROR: ${req.method} ${req.baseUrl}${req.path} - Error: ${error}`);
         return res.status(500).json(catchErrorResponse(errorMessage));
     }
 };

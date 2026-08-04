@@ -19,7 +19,7 @@
     "dev": "npx nodemon server.js"
   },
   "dependencies": {
-    "argon2id": "^1.0.1",
+    "argon2": "^0.45.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "moment": "^2.30.1",
