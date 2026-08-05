@@ -6,6 +6,12 @@ import bcrypt from "bcrypt";
 
 
 // & Response Formats
+export const ResponseJson = (data, message, success, type) => ({
+    data,
+    message,
+    success,
+    type: responseType[type],
+});
 export const catchSuccessResponse = (successMessage = '', data = null) => ({
     data,
     success: true,
@@ -77,7 +83,7 @@ export const protectValue = (value) => {
 // ? Generate Hash OTP
 export const generateHashedOtp = async () => {
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const hashedOtp = await generateHashed(String(otp));
+    const hashedOtp = await generateHashed(String(123123));
 
     return hashedOtp;
 }

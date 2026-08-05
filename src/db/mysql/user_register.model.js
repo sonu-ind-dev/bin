@@ -34,11 +34,21 @@ export function initializeUserRegisterModel(sequelize) {
                 defaultValue: 0,
                 allowNull: true,
             },
-            submission_blocked: {
+            submission_blocked: { // After 5 times submission we block user for 5 minutes
                 type: DataTypes.BIGINT,
                 defaultValue: null,
                 allowNull: true,
             },
+            verify_count: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+                allowNull: true,
+            },
+            verify_blocked: { // After 5 times otp verify we block user for 1 minute
+                type: DataTypes.BIGINT,
+                defaultValue: null,
+                allowNull: true,
+            }
         },
         {
             sequelize,
@@ -67,8 +77,8 @@ export function initializeUserRegisterModel(sequelize) {
  * & That's it your table related changes are completed.
  */
 export const userRegisterVersionInfo = Object.freeze({
-    version: "1.1.1",
-    description: "Moving Date type columns to BIGINT to store utc number value",
+    version: "1.2.1",
+    description: "Adding columns to track otp verification submission counts & handle accordingly",
     updated_by: "sonu.ind.dev@gmail.com",
     approved_by: "",
 });

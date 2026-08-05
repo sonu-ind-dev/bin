@@ -8,4 +8,9 @@ const authRouter = Router();
 */
 authRouter.post("/register", authController.register);
 
+/**
+ * POST - /api/auth/verify-otp
+ */
+authRouter.post("/verify-otp", authController.verifyOtp);
+
 export default authRouter;
