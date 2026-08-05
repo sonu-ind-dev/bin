@@ -24,6 +24,7 @@ const databaseTableUpdateFlag = true;
 
 // Remove file from tracking: git rm --cached src/db/mysql/index.js
 // Get this file back to tracking: git add src/db/mysql/index.js
+// Fetch list of all ignored files: git ls-files --others --exclude-standard
 
 // & Export Our Models
 export const UserRegister = initializeUserRegisterModel(sequelize);
