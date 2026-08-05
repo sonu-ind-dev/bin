@@ -1,8 +1,3 @@
-
-
-
-
-
 import { DataTypes, Model } from "sequelize";
 
 export class UserProfile extends Model { }
@@ -11,9 +6,8 @@ export function initializeUserProfileModel(sequelize) {
     UserProfile.init(
         {
             user_id: {
-                type: DataTypes.BIGINT.UNSIGNED,
+                type: DataTypes.UUID,
                 primaryKey: true,
-                allowNull: false,
                 references: {
                     model: "user",
                     key: "user_id",
@@ -31,7 +25,7 @@ export function initializeUserProfileModel(sequelize) {
             },
             gender: {
                 type: DataTypes.INTEGER, // ? 1 -> Male, 2 -> Female, 3 -> Not Prefer, 4 -> Other
-                defaultValue: 0,
+                defaultValue: null,
                 allowNull: true,
             },
             profile_image_url: {
@@ -73,8 +67,8 @@ export function initializeUserProfileModel(sequelize) {
  * & That's it your table related changes are completed.
  */
 export const userProfileVersionInfo = Object.freeze({
-    version: "1.1.0",
-    description: "Moving Date type columns to BIGINT to store utc number value",
+    version: "1.1.1",
+    description: "Moving gender column default value from 0 to null",
     updated_by: "sonu.ind.dev@gmail.com",
     approved_by: "",
 });
