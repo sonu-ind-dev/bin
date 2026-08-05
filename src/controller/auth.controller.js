@@ -24,7 +24,8 @@ import moment from "moment";
 export const register = async (req, res) => {
     try {
         // ? Fetch required info from req & handle validation
-        const { phone_number, password } = req.body;
+        let { phone_number, password } = req.body;
+        phone_number = Number(phone_number);
 
         if (!phone_number || !password) {
             let errorMessage = 'Phone number and Password are required.';

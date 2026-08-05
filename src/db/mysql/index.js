@@ -27,6 +27,17 @@ export const UserRegister = initializeUserRegisterModel(sequelize);
 export const User = initializeUserModel(sequelize);
 export const UserProfile = initializeUserProfileModel(sequelize);
 
+User.hasOne(UserProfile, {
+    foreignKey: "user_id",
+    sourceKey: "user_id",
+    as: "profile",
+});
+UserProfile.belongsTo(User, {
+    foreignKey: "user_id",
+    targetKey: "user_id",
+    as: "user",
+});
+
 export class TableVersionHistory extends Model { }
 
 TableVersionHistory.init(

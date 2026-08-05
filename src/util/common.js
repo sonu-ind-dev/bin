@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import config from "../config/config.js";
 import { responseType } from "./constant.js";
 import * as argon2 from "argon2";
+import bcrypt from "bcrypt";
 
 
 // & Response Formats
@@ -25,9 +26,26 @@ export const catchWarningResponse = (warningMessage = '', data = null) => ({
 });
 
 
-// & Encryption Things
-export const generateHashed = async (value) => await argon2.hash(value, { type: argon2.argon2id });
-export const verifyWithHash = async (enteredValue, hashedValue) => await argon2.verify(hashedValue, enteredValue);
+/**
+// & Encryption, Hash, Comparision
+// & | --------------------- | --------- | ----------- |
+// & | Feature               | bcrypt    | Argon2id    |
+// & | --------------------- | --------- | ----------- |
+// ? | Security              | Very good | Excellent   |
+// ? | Speed                 | Faster    | Slower      |
+// ? | Memory usage          | Low       | High        |
+// ? | GPU attack resistance | Good      | Better      |
+// ? | Industry adoption     | Very high | Increasing  |
+// ? | OWASP recommendation  | Good      | Preferred   |
+// ?
+// ? Argon2id → best choice if you can use it.
+// ? bcrypt → completely acceptable if you want simplicity and compatibility.
+*/
+// export const generateHashed = async (value) => await argon2.hash(value, { type: argon2.argon2id });
+// export const verifyWithHash = async (enteredValue, hashedValue) => await argon2.verify(hashedValue, enteredValue);
+
+export const generateHashed = async (value) => await bcrypt.hash(value, 12);
+export const verifyWithHash = async (enteredValue, hashedValue) => await bcrypt.compare(enteredValue, hashedValue);
 
 export const protectValue = (value) => {
     if (typeof value !== "string") throw new TypeError("value must be a string to protect.");
